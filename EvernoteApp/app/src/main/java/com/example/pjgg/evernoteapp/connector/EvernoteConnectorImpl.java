@@ -7,9 +7,6 @@ import com.evernote.client.android.EvernoteSession;
 import com.evernote.edam.notestore.NoteFilter;
 import com.evernote.edam.notestore.NoteList;
 import com.evernote.edam.type.Note;
-import com.example.pjgg.evernoteapp.converter.Converter;
-import com.example.pjgg.evernoteapp.converter.NoteListToNoteConverter;
-import com.example.pjgg.evernoteapp.model.AppNote;
 import com.example.pjgg.evernoteapp.session.Session;
 
 import rx.Observable;
@@ -30,33 +27,36 @@ public class EvernoteConnectorImpl implements Connector{
     private static final int DEFAULT_OFFSET = 0;
     private static final int DEFAULT_MAXNOTES = 10;
 
-    private Converter<AppNote, Note> converter = new NoteListToNoteConverter();
-
-    private Observable<NoteList> fetchNotesFromEvernotes = Observable.create(new Observable.OnSubscribe<NoteList>() {
-        @Override
-        public void call(Subscriber<? super NoteList> subscriber) {
-            try {
-                NoteList data = retrieveEvernoteSession().getEvernoteClientFactory().getNoteStoreClient().findNotes(new NoteFilter() ,DEFAULT_OFFSET,DEFAULT_MAXNOTES);
-                subscriber.onNext(data); // Emit the contents of the URL
-                subscriber.onCompleted(); // Nothing more to emit
-            }catch(Exception e){
-                subscriber.onError(e); // In case there are network errors
-            }
-        }
-    });
-
     @Override
     public Boolean isLoggedIn() {
         Log.d(TAG, "isLoggedIn");
         return retrieveEvernoteSession().isLoggedIn();
     }
 
-    public Observable<NoteList> retrieveNotes(){
-        Observable evernoteNoteList = Observable.empty();
+    @Override
+    public Observable<Note> createNote(final Note note) {
 
-        evernoteNoteList = fetchNotesFromEvernotes
-                .subscribeOn(Schedulers.newThread()) // Create a new Thread
-                .observeOn(AndroidSchedulers.mainThread()); // Use the UI thread
+        Observable<Note> noteEmiter =  Observable.create((Observable.OnSubscribe<Note>) subscriber -> {
+                try {
+                    Note data = retrieveEvernoteSession().getEvernoteClientFactory().getNoteStoreClient().createNote(note);
+                    subscriber.onNext(data);
+                    subscriber.onCompleted();
+                }catch(Exception e){
+                    subscriber.onError(e);
+                }
+            });
+
+        return noteEmiter.subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread());
+
+    }
+
+    @Override
+    public Observable<NoteList> retrieveNotes(){
+
+        Observable evernoteNoteList = evernoteNoteList = fetchNotesFromEvernotes
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread());
 
         return evernoteNoteList;
     }
@@ -71,5 +71,18 @@ public class EvernoteConnectorImpl implements Connector{
 
         return EvernoteSession.getInstance();
     }
+
+    private Observable<NoteList> fetchNotesFromEvernotes = Observable.create(new Observable.OnSubscribe<NoteList>() {
+        @Override
+        public void call(Subscriber<? super NoteList> subscriber) {
+            try {
+                NoteList data = retrieveEvernoteSession().getEvernoteClientFactory().getNoteStoreClient().findNotes(new NoteFilter() ,DEFAULT_OFFSET,DEFAULT_MAXNOTES);
+                subscriber.onNext(data); // Emit the contents of the URL
+                subscriber.onCompleted(); // Nothing more to emit
+            }catch(Exception e){
+                subscriber.onError(e); // In case there are network errors
+            }
+        }
+    });
 }
 
