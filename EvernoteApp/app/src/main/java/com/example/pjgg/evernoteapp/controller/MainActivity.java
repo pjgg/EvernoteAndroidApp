@@ -1,11 +1,12 @@
 package com.example.pjgg.evernoteapp.controller;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 
 import com.evernote.edam.notestore.NoteList;
 import com.evernote.edam.type.Note;
@@ -38,11 +39,9 @@ public class MainActivity extends Controller {
 
         Log.d(TAG, "Login successfully");
 
-        final RelativeLayout relativeLayout = (RelativeLayout)findViewById(R.id.activity_main);
-
         // Get reference of widgets from XML layout
         final ListView listView = (ListView) findViewById(R.id.lv);
-        final Button btn = (Button) findViewById(R.id.btn);
+        final Button btn = (Button) findViewById(R.id.buttonAddNote);
 
         Observable<NoteList> evernoteNoteList =  evernoteConnector.retrieveNotes();
         evernoteNoteList.doOnNext(noteList -> {
@@ -59,6 +58,12 @@ public class MainActivity extends Controller {
 
         }).subscribe();
 
+    }
+
+    public void onClickbuttonAddNote(View view){
+        Intent i = new Intent(this,CreateNoteActivity.class);
+        startActivity(i);
+        finish();
     }
 }
 

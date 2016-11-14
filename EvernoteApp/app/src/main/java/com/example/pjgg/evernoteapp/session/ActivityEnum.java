@@ -7,6 +7,7 @@ import java.util.Map;
 public enum ActivityEnum {
 	MAIN_ACTIVITY("MainActivity"),
 	LOGIN_ACTIVITY("LoginActivity"),
+	CREATE_NOTE_ACTIVITY("CreateNoteActivity"),
 	UNKNOWN("unknown");
 	
 	private String type;

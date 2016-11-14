@@ -1,8 +1,6 @@
 package com.example.pjgg.evernoteapp.session;
 
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.content.res.AssetManager;
 import android.content.res.Resources;
 
 public class Session {
