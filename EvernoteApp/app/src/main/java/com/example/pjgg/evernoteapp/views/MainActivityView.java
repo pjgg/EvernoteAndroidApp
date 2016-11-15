@@ -9,6 +9,7 @@ public class MainActivityView {
 
     public MainActivityView(ListView lv){
         this.noteslistView = lv;
+        this.noteslistView.setClickable(true);
     }
 
     public ListView getNoteslistView() {

@@ -14,4 +14,6 @@ public interface Connector {
 
  Observable<Note> createNote(Note note);
 
+ Observable<Note> retrieveNote(String guid);
+
 }

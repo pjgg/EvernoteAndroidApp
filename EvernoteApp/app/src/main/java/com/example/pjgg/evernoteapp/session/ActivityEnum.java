@@ -8,6 +8,7 @@ public enum ActivityEnum {
 	MAIN_ACTIVITY("MainActivity"),
 	LOGIN_ACTIVITY("LoginActivity"),
 	CREATE_NOTE_ACTIVITY("CreateNoteActivity"),
+	SHOW_NOTE_ACTIVITY("ShowNoteActivity"),
 	UNKNOWN("unknown");
 	
 	private String type;
