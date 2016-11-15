@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 
 import com.evernote.edam.notestore.NoteList;
@@ -17,6 +16,7 @@ import com.example.pjgg.evernoteapp.converter.Converter;
 import com.example.pjgg.evernoteapp.converter.NoteListToNoteConverter;
 import com.example.pjgg.evernoteapp.model.AppNote;
 import com.example.pjgg.evernoteapp.session.ActivityEnum;
+import com.example.pjgg.evernoteapp.views.MainActivityView;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -30,7 +30,8 @@ public class MainActivity extends Controller {
     private static final String TAG = "MainActivity";
 
     private Converter<AppNote, Note> converter = new NoteListToNoteConverter();
-    Connector evernoteConnector = new EvernoteConnectorImpl();
+    private Connector evernoteConnector = new EvernoteConnectorImpl();
+    private MainActivityView mainActivityView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,23 +39,22 @@ public class MainActivity extends Controller {
         setContentView(R.layout.activity_main);
 
         Log.d(TAG, "Login successfully");
-
-        // Get reference of widgets from XML layout
-        final ListView listView = (ListView) findViewById(R.id.lv);
-        final Button btn = (Button) findViewById(R.id.buttonAddNote);
+        mainActivityView = new MainActivityView((ListView) findViewById(R.id.lv));
 
         Observable<NoteList> evernoteNoteList =  evernoteConnector.retrieveNotes();
         evernoteNoteList.doOnNext(noteList -> {
             Collection<AppNote> appNotes = converter.createDataTransferObjects(noteList.getNotes());
+            // min api version must be 24 in order to use Streams. :(
+            //List<String> titleList = appNotes.stream().map(AppNote::getTitle).collect(Collectors.toList());
             List<String> titleList = new ArrayList<>();
             for (AppNote note : appNotes) {
                 titleList.add(note.getTitle());
             }
-            final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>
-                    (this, android.R.layout.simple_list_item_1, titleList);
 
-            // DataBind ListView with items from ArrayAdapter
-            listView.setAdapter(arrayAdapter);
+             final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>
+                (this, android.R.layout.simple_list_item_1, titleList);
+
+            mainActivityView.getNoteslistView().setAdapter(arrayAdapter);
 
         }).subscribe();
 
