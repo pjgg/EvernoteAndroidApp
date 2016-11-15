@@ -2,8 +2,6 @@ package com.example.pjgg.evernoteapp.views;
 
 import android.widget.EditText;
 
-import com.example.pjgg.evernoteapp.R;
-
 public class CreateNoteActivityView {
 
     EditText titleEditText;

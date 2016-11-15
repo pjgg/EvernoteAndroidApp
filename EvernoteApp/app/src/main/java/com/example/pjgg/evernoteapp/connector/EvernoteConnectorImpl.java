@@ -36,7 +36,7 @@ public class EvernoteConnectorImpl implements Connector{
     @Override
     public Observable<Note> createNote(final Note note) {
 
-        Observable<Note> noteEmiter =  Observable.create((Observable.OnSubscribe<Note>) subscriber -> {
+        Observable<Note> noteEmiter =  Observable.create(subscriber -> {
                 try {
                     Note data = retrieveEvernoteSession().getEvernoteClientFactory().getNoteStoreClient().createNote(note);
                     subscriber.onNext(data);
@@ -54,11 +54,28 @@ public class EvernoteConnectorImpl implements Connector{
     @Override
     public Observable<NoteList> retrieveNotes(){
 
-        Observable evernoteNoteList = evernoteNoteList = fetchNotesFromEvernotes
+        Observable evernoteNoteList = fetchNotesFromEvernotes
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread());
 
         return evernoteNoteList;
+    }
+
+    @Override
+    public Observable<Note> retrieveNote(final String guid){
+
+        Observable<Note> noteEmiter =  Observable.create( subscriber -> {
+            try {
+                Note data = retrieveEvernoteSession().getEvernoteClientFactory().getNoteStoreClient().getNote(guid, true, false, false,false);
+                subscriber.onNext(data);
+                subscriber.onCompleted();
+            }catch(Exception e){
+                subscriber.onError(e);
+            }
+        });
+
+        return noteEmiter.subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
     private EvernoteSession retrieveEvernoteSession(){
