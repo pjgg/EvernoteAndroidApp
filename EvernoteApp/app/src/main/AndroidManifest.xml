@@ -18,7 +18,11 @@
         <activity android:name="com.evernote.client.android.EvernoteOAuthActivity" />
         <activity android:name="com.example.pjgg.evernoteapp.controller.LoginActivity" />
         <activity android:name="com.example.pjgg.evernoteapp.controller.CreateNoteActivity" />
-        <activity android:name="com.example.pjgg.evernoteapp.controller.ShowNoteActivity" />
+        <activity android:name="com.example.pjgg.evernoteapp.controller.ShowNoteActivity" /><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
+     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
     </application>
 
 </manifest>

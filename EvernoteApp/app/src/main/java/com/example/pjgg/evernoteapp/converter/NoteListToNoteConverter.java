@@ -27,7 +27,7 @@ public class NoteListToNoteConverter implements Converter<AppNote, Note>{
     }
 
     @Override
-    public Collection<AppNote> createDataTransferObjects(Collection<Note> notes) {
+    public List<AppNote> createDataTransferObjects(Collection<Note> notes) {
         List<AppNote> resultAppNotes = new ArrayList<AppNote>();
         for(Note note:notes) {
             resultAppNotes.add(createDataTransferObject(note));

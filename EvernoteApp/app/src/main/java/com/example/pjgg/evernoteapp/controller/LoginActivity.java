@@ -1,5 +1,6 @@
 package com.example.pjgg.evernoteapp.controller;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -38,6 +39,8 @@ public class LoginActivity extends AppCompatActivity implements EvernoteLoginFra
     @Override
     public void onLoginFinished(boolean successful) {
         if (successful) {
+            Intent i = new Intent(this,MainActivity.class);
+            startActivity(i);
             finish();
         } else {
             mButton.setEnabled(true);

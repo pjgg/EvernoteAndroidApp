@@ -18,8 +18,8 @@ public class EvernoteConnectorImpl implements Connector{
 
     private static final String TAG = "EvernoteConnectorImpl";
 
-    private static final String CONSUMER_KEY = "pablostratio";
-    private static final String CONSUMER_SECRET = "0f4fd37164723c01";
+    private static final String CONSUMER_KEY = "pablotest";
+    private static final String CONSUMER_SECRET = "6636610751a2133a";
     private static final EvernoteSession.EvernoteService EVERNOTE_SERVICE = EvernoteSession.EvernoteService.SANDBOX;
     private static final boolean SUPPORT_APP_LINKED_NOTEBOOKS = true;
     private static final boolean FORCE_AUTHENTICATION_IN_THIRD_PARTY_APP = true;
