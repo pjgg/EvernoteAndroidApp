@@ -27,10 +27,10 @@ En esta app se pretende abordar los siguientes puntos desde un punto de vista de
   - Al crear una nota, se podrá elegir entre crearla mediante el teclado o bien escribir sobre la pantalla; donde un OCR convertirá la escritura en tipografía de computadora.(Not implemented yet).
 
 
-[login]: https://github.com/pjgg/EvernoteAndroidApp/doc-img/login.png
-[credentials]: https://github.com/pjgg/EvernoteAndroidApp/doc-img/credentials.png
-[createNewNote]: https://github.com/pjgg/EvernoteAndroidApp/doc-img/createNewNote.png
-[mainActivityEmpty]: https://github.com/pjgg/EvernoteAndroidApp/doc-img/mainActivityEmpty.png
-[orderNoteByTitle]: https://github.com/pjgg/EvernoteAndroidApp/doc-img/orderNoteByTitle.png
-[orderNoteByUpdateDate]: https://github.com/pjgg/EvernoteAndroidApp/doc-img/orderNoteByUpdateDate.png
-[showNoteBody]: https://github.com/pjgg/EvernoteAndroidApp/doc-img/showNoteBody.png
+[login]: https://github.com/pjgg/EvernoteAndroidApp/blob/master/doc-img/login.png
+[credentials]: https://github.com/pjgg/EvernoteAndroidApp/blob/master/doc-img/credentials.png
+[createNewNote]: https://github.com/pjgg/EvernoteAndroidApp/blob/master/doc-img/createNewNote.png
+[mainActivityEmpty]: https://github.com/pjgg/EvernoteAndroidApp/blob/master/doc-img/mainActivityEmpty.png
+[orderNoteByTitle]: https://github.com/pjgg/EvernoteAndroidApp/blob/master/doc-img/orderNoteByTitle.png
+[orderNoteByUpdateDate]: https://github.com/pjgg/EvernoteAndroidApp/blob/master/doc-img/orderNoteByUpdateDate.png
+[showNoteBody]: https://github.com/pjgg/EvernoteAndroidApp/blob/master/doc-img/showNoteBody.png
